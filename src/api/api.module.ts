@@ -1,21 +1,22 @@
-import { DynamicModule, Module } from "@nestjs/common";
+import { DynamicModule, Module, UsePipes } from "@nestjs/common";
 import { OPTIONS_TYPE } from "./api.module-definition"
-import { APP_INTERCEPTOR } from "@nestjs/core";
+import { APP_GUARD, APP_INTERCEPTOR } from "@nestjs/core";
+import { UserController } from "./controllers/user.controller";
+import { AuthGuard } from "src/common/auth/auth.guards";
 @Module({})
 
 export class ApiModule {
     static register(options: typeof OPTIONS_TYPE): DynamicModule {
         return {
             module: ApiModule,
+            controllers: [UserController],
             global: true,
-            imports: [options.useCaseModules],
+            imports: [options.useCaseModule],
             providers: [
                 {
-                    provide: APP_INTERCEPTOR,
-                    useClass : GlobalResponse,
-            }
-            ]
-
+                    provide: APP_GUARD,
+                    useClass: AuthGuard,
+                }]
         }
     }
 }

@@ -8,14 +8,18 @@ import { ApiModule } from './api/api.module';
 
 export class AppModule {
   static register(): DynamicModule {
+
+    const imports = [
+      TypeormModule.register(RepositoryModule.register()),
+      ApiModule.register({
+        useCaseModule: UseCaseModule.register()
+      }
+      )
+    ]
+
     return {
       module: AppModule,
-      imports: [
-        TypeormModule.register(RepositoryModule.register()),
-        ApiModule.register({
-          useCaseModules : UseCaseModule.register()
-        })
-      ]
+      imports,
     }
   }
 }
