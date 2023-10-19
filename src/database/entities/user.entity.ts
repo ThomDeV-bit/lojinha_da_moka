@@ -19,6 +19,9 @@ export class UserEntity {
     @Column({ name: 'password', nullable: false })
     password: string
 
+    @Column({ name: 'roles' })
+    roles: string
+
 }
 
 export interface IUserRepository {
