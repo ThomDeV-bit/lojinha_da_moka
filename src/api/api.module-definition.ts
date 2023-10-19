@@ -1,7 +1,7 @@
 import { ConfigurableModuleBuilder, DynamicModule } from "@nestjs/common";
 
 interface ModuleOptions {
-    useCaseModules: DynamicModule;
+    useCaseModule: DynamicModule;
 }
 
 export const { ConfigurableModuleClass, MODULE_OPTIONS_TOKEN, OPTIONS_TYPE } =

@@ -9,6 +9,7 @@ export const dataSourceOptions: DataSourceOptions = {
     password: 'root123',
     database: 'loja',
     cache: true,
+    synchronize: true,
     entities: [
         __dirname + '/../**/*.entity{.ts,.js}',
     ],
@@ -18,5 +19,5 @@ export const dataSourceOptions: DataSourceOptions = {
 
 const dataSource = new DataSource(dataSourceOptions);
 
-export default dataSource;
+export default dataSource
 
