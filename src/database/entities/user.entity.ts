@@ -1,4 +1,6 @@
-import { Column, Entity, PrimaryColumn } from "typeorm";
+import { Column, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryColumn } from "typeorm";
+import { RolesEntity } from "./roles.entity";
+import { UserPermission } from "./user-permission.entiry";
 
 @Entity()
 
@@ -19,11 +21,11 @@ export class UserEntity {
     @Column({ name: 'password', nullable: false })
     password: string
 
-    @Column({ name: 'roles' })
-    roles: string
+    @OneToMany(()=>UserPermission, (userPermission)=> userPermission.user)
+    userPermissions: UserPermission[]
 
 }
 
 export interface IUserRepository {
-    find(): Promise<UserEntity[]>;
+    find();
 }
