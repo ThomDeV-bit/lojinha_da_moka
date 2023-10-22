@@ -1,3 +1,4 @@
-import { UserUseCase } from "./user-find";
+import { UserCreateUseCase } from "./user-create";
+import { UserSearchUseCase } from "./user-find";
 
-export const USER_USE_CASE = [UserUseCase]
+export const USER_USE_CASE = [UserSearchUseCase,UserCreateUseCase]

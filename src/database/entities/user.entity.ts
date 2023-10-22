@@ -1,6 +1,6 @@
 import { Column, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryColumn } from "typeorm";
 import { RolesEntity } from "./roles.entity";
-import { UserPermission } from "./user-permission.entiry";
+import { UserPermissionEntity } from "./user-permission.entiry";
 
 @Entity()
 
@@ -21,8 +21,8 @@ export class UserEntity {
     @Column({ name: 'password', nullable: false })
     password: string
 
-    @OneToMany(()=>UserPermission, (userPermission)=> userPermission.user)
-    userPermissions: UserPermission[]
+    @OneToMany(()=>UserPermissionEntity, (userPermission)=> userPermission.user)
+    userPermissions: UserPermissionEntity[]
 
 }
 
