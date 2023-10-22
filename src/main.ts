@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import dataSource, { dataSourceOptions } from './database/config/database.config';
+import dataSource from './database/config/database.config';
 import { INestApplication } from '@nestjs/common';
 
 async function bootstrap() {
@@ -14,6 +14,7 @@ async function bootstrap() {
   });
 
   app.flushLogs()
+  
   const config = new DocumentBuilder()
     .setTitle('Lojinha da moka')
     .setDescription('good fly ')

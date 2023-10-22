@@ -5,13 +5,13 @@ import { TYPEORM_TOKENS } from "src/database/reposiotory/tokens";
 import { UserRepository } from "src/database/reposiotory/user/user.repository";
 
 @Injectable()
-export class UserUseCase {
+export class UserSearchUseCase {
     constructor(
         @Inject(TYPEORM_TOKENS.USER_REPOSITORY)
         private readonly userRepository: UserRepository
     ) { }
 
-    async find(): Promise<UserEntity[]> {
+    async find() {
         return await this.userRepository.find()
     }
 }
