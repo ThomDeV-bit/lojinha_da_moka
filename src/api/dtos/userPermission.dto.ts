@@ -14,8 +14,8 @@ export class UserPermissionDTO {
     user : UserEntity
 
 
-    @ApiProperty({name : 'id'})
-    @Expose({name : 'id'})
+    @ApiProperty({name : 'roelsid'})
+    @Expose({name : 'rolesid'})
     @Type(()=> RolesEntity)
     roles : RolesEntity
 
