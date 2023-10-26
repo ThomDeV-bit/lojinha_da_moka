@@ -9,7 +9,7 @@ export interface IGlobalResponse<T> {
 }
 
 export class GlobalResponse<T> implements NestInterceptor<T, IGlobalResponse<T>> {
-    intercept (context: ExecutionContext, next: CallHandler): Observable<IGlobalResponse<T>> {
+    intercept(context: ExecutionContext, next: CallHandler): Observable<IGlobalResponse<T>> {
         const response = context.switchToHttp().getResponse<Response>();
         const STATUS = response.statusCode >= 200 && response.statusCode <= 299 ? 'OK' : 'ERRO';
         let MENSAGE = response.req.method;
@@ -18,6 +18,7 @@ export class GlobalResponse<T> implements NestInterceptor<T, IGlobalResponse<T>>
             case 'GET':
                 MENSAGE = 'RESEARCH CARRIED OUT SUCCESSFULLY';
                 break;
+
             case 'POST':
                 MENSAGE = 'EXECUTED SUCCESSFULLY';
                 break;
@@ -30,12 +31,13 @@ export class GlobalResponse<T> implements NestInterceptor<T, IGlobalResponse<T>>
             default:
                 MENSAGE = 'SUCCESS';
                 break;
+
         }
         return next.handle().pipe(
             map(responseBody => ({
                 STATUS,
                 MENSAGE,
-                RESPONSE: Array.isArray(responseBody) ? responseBody : [ responseBody ]
+                RESPONSE: Array.isArray(responseBody) ? responseBody : [responseBody]
             }))
         );
     }

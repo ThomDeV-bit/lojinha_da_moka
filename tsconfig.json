@@ -21,5 +21,5 @@
     "include": [
         "./src/**/*.ts",
         "migrations/**/*.ts"
-, "src/database/create_users_permission_relation.migrationts"    ]
+, "src/database/create_users_permission_relation.migrationts" ],
 }

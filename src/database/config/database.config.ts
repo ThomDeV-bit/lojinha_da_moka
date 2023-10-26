@@ -12,8 +12,8 @@ export const dataSourceOptions: DataSourceOptions = {
     password: 'root123',
     database: 'loja',
     cache: true,
-    entities: [ UserEntity, RolesEntity, UserPermissionEntity ],
-    migrations: [Create_users_permission_relatio1697984541448 ],
+    entities: [UserEntity, RolesEntity, UserPermissionEntity],
+    migrations: [Create_users_permission_relatio1697984541448],
     logging: 'all'
 };
 
