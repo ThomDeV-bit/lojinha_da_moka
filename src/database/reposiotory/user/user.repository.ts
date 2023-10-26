@@ -35,7 +35,6 @@ export class UserRepository implements IUserRepository {
         })
     }
 
-
     async findOneByEmail(userEmail: string): Promise<UserEntity> {
         return await this.userRepository.findOne({
             where: {
