@@ -12,6 +12,6 @@ export class UserSearchUseCase {
     ) { }
 
     async find() {
-        return await this.userRepository.find()
+        return await this.userRepository.findAll()
     }
 }

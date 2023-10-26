@@ -27,5 +27,5 @@ export class UserEntity {
 }
 
 export interface IUserRepository {
-    find();
+    findAll();
 }

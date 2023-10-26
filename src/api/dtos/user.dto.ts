@@ -4,9 +4,8 @@ import { IsEmail, IsEnum } from 'class-validator';
 import { RolesEntity } from 'src/database/entities/roles.entity';
 
 export class UserDTO {
-    @ApiProperty({ name: 'id' })
-    @Expose({ name: 'id' })
-    id: string;
+
+    id?: string;
 
     @ApiProperty({ name: 'name' })
     @Expose({ name: 'name' })
