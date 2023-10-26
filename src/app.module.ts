@@ -5,6 +5,7 @@ import { UseCaseModule } from './use-case/use-cases.module';
 import { ApiModule } from './api/api.module';
 import { LoggerModule } from 'nestjs-pino';
 import { logger } from './common/logger/logger';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({})
 export class AppModule {
@@ -12,6 +13,13 @@ export class AppModule {
         const imports = [
             LoggerModule.forRoot({
                 pinoHttp: logger
+            }),
+            JwtModule.register({
+                global : true ,
+                secret : 'testeToken',
+                signOptions : {
+                    expiresIn : 15
+                }
             }),
             TypeormModule.register(RepositoryModule.register()),
             ApiModule.register({
