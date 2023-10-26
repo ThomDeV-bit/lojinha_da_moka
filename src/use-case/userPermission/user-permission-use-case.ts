@@ -6,17 +6,13 @@ import { UserPermissionRepository } from 'src/database/reposiotory/userPermissio
 
 @Injectable()
 export class UserPermissionUseCase {
-    constructor (
+    constructor(
         @Inject(TYPEORM_TOKENS.USER_PERMISSION_REPOSIOTRY)
         private readonly userPermissionRepository: UserPermissionRepository
-    ) {}
+    ) { }
 
-    async createPermission (userId: string, role: string, userPermission: UserPermissionDTO) {
-        try {
-            logger.logger.info(UserPermissionUseCase.prototype.createPermission)
-            return await this.userPermissionRepository.createUserPermission(userId, role, userPermission);
-        } catch (error) {
-            throw new UnprocessableEntityException();
-        }
+    async createPermission(userId: string, role: string, userPermission: UserPermissionDTO) {
+        logger.logger.info(UserPermissionUseCase.prototype.createPermission)
+        return await this.userPermissionRepository.createUserPermission(userId, role, userPermission);
     }
 }
