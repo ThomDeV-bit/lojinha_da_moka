@@ -6,6 +6,7 @@ import { TYPEORM_TOKENS } from "src/database/reposiotory/tokens";
 import { UserRepository } from "src/database/reposiotory/user/user.repository";
 import { compare, hash } from 'bcrypt'
 import { JwtService } from "@nestjs/jwt";
+import * as dotenv from "dotenv";
 
 @Injectable()
 
@@ -25,7 +26,10 @@ export class SingInUseCase {
         if (passwordValid === false) throw new UnauthorizedException('Senha invalida')
         const payload = { sub: user.id, email: user.email }
         return {
-            acess_token: await this.jwtToken.signAsync(payload)
+            acess_token: await this.jwtToken.signAsync(payload),
+            refresh_token: await this.jwtToken.signAsync(payload, { expiresIn: 86400 }),
+            token_type: "Bearer",
+            expires_in: 3600
         }
     }
 }

@@ -6,19 +6,21 @@ import { ApiModule } from './api/api.module';
 import { LoggerModule } from 'nestjs-pino';
 import { logger } from './common/logger/logger';
 import { JwtModule } from '@nestjs/jwt';
+import * as dotenv from 'dotenv';
 
 @Module({})
 export class AppModule {
-    static register (): DynamicModule {
+    static register(): DynamicModule {
+        dotenv.config()
         const imports = [
             LoggerModule.forRoot({
                 pinoHttp: logger
             }),
             JwtModule.register({
-                global : true ,
-                secret : 'testeToken',
-                signOptions : {
-                    expiresIn : 3600
+                global: true,
+                secret: process.env.SECRET_KEY,
+                signOptions: {
+                    expiresIn: process.env.EXPIRES_IN
                 }
             }),
             TypeormModule.register(RepositoryModule.register()),

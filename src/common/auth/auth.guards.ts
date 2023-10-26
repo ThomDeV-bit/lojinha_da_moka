@@ -15,21 +15,19 @@ export class AuthGuard implements CanActivate {
             const payload = await this.jwtToken.verifyAsync(
                 token,
                 {
-                    ignoreExpiration : false
+                    ignoreExpiration: false
                 }
-
             )
             request.user = payload
         } catch (error) {
             throw new UnauthorizedException('')
         }
         return true
-
     }
 
     private extractTokenFromHeader(request: Request): string | undefined {
-        const [token] = request.headers.authorization?.split(' ') ?? null;
-        return token
-
+        const [type, token] = request.headers.authorization?.split(' ') ?? [];
+        console.log(type)
+        return type === "Bearer" ? token : undefined
     }
 }
