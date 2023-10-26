@@ -18,7 +18,7 @@ export class AppModule {
                 global : true ,
                 secret : 'testeToken',
                 signOptions : {
-                    expiresIn : 10
+                    expiresIn : 3600
                 }
             }),
             TypeormModule.register(RepositoryModule.register()),
