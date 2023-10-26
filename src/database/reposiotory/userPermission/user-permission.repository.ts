@@ -21,7 +21,7 @@ export class UserPermissionRepository {
     ) {}
 
     async createUserPermission (userId: string, role: string, userPermission: UserPermissionDTO) {
-        const user = await this.userRepository.findOne(userId);
+        const user = await this.userRepository.findOneById(userId);
         const roles = await this.rolesRepository.find(role);
         if (!user && !role) {
             throw new BadRequestException('user does not exists');
