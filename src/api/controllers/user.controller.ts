@@ -37,10 +37,6 @@ export class UserController {
 
     @Post('create')
     async create(@Body() user: UserDTO) {
-        try {
-            return await this.userCreateUseCase.create(user);
-        } catch (error) {
-            throw new UnprocessableEntityException('AAAAAAAAAAAAAAAAAAAA');
-        }
+        return await this.userCreateUseCase.create(user);
     }
 }

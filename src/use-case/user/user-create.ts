@@ -21,7 +21,7 @@ export class UserCreateUseCase {
             user.password = await hash(user.password,10)
             return await this.userRepository.insert(user)
         } catch (error) {
-            throw new UnprocessableEntityException('Fail to create user');
+            throw new UnprocessableEntityException('Falha ao criar usuario');
         }
     }
 }

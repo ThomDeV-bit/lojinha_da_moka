@@ -36,6 +36,7 @@ export class AuthGuard implements CanActivate {
         } catch (error) {
             throw new UnauthorizedException('')
         }
+        requiredRoles.map((roles)=> console.log(roles,'******************'))
 
         return requiredRoles.some((roles) => request.user?.role === roles)
     }
