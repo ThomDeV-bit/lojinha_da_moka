@@ -23,10 +23,25 @@ export class UserPermissionRepository {
 
     async createUserPermission (userId: string, role: string, userPermission: UserPermissionDTO) {
         const user = await this.userRepository.findOneById(userId);
-        const roles = await this.rolesRepository.find(role);
+
+        const permission = await this.searchRole(user)
+
+        const allRoles = await this.rolesRepository.find()
+
+        if(permission.length > allRoles.length) throw new ForbiddenException('Esse usuario ja tem todas as permissoes')
+
+        let Isvalid;
+
+        permission.map((roles) => console.log(roles.roles.id != role ? Isvalid = true : Isvalid = false));
+
+        if(Isvalid === false)throw new ForbiddenException('Usuario ja contem essa permissão')
+
+        const roles = await this.rolesRepository.findById(role);
+
         if (!user && !role) {
             throw new BadRequestException('user does not exists');
         }
+        
         userPermission.id = v4();
         userPermission.user = user;
         userPermission.roles = roles;
