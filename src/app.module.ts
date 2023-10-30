@@ -20,7 +20,7 @@ export class AppModule {
                 global: true,
                 secret: process.env.SECRET_KEY,
                 signOptions: {
-                    expiresIn: 30
+                    expiresIn: 3600
                 },
                 verifyOptions: {
                     ignoreExpiration: false

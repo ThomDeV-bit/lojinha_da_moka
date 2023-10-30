@@ -32,6 +32,9 @@ export class UserRepository implements IUserRepository {
             where: {
                 id: user
             },
+            relations : {
+                 userPermissions : true
+            }
         })
     }
 
@@ -40,6 +43,9 @@ export class UserRepository implements IUserRepository {
             where: {
                 email: userEmail
             },
+            relations : {
+                userPermissions : true
+            }
         })
     }
 }
