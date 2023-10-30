@@ -16,5 +16,5 @@ export class RolesEntity {
     userPermission : UserPermissionEntity[]
 }
 export interface IRolesRepository {
-    find(roles : string): Promise<RolesEntity>;
+    findById(roles : string): Promise<RolesEntity>;
 }

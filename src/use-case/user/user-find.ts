@@ -1,4 +1,4 @@
-import { Injectable, Inject } from "@nestjs/common";
+import { Injectable, Inject, NotFoundException } from "@nestjs/common";
 import { UserController } from "src/api/controllers/user.controller";
 import { UserEntity } from "src/database/entities/user.entity";
 import { TYPEORM_TOKENS } from "src/database/reposiotory/tokens";
@@ -12,6 +12,11 @@ export class UserSearchUseCase {
     ) { }
 
     async find() {
-        return await this.userRepository.findAll()
+        try {
+            return await this.userRepository.findAll()
+        } catch (error) {
+            throw new NotFoundException()
+        }
+
     }
 }

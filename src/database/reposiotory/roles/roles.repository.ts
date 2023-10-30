@@ -9,7 +9,7 @@ export class RolesRepository implements IRolesRepository {
         @InjectRepository(RolesEntity)
         private readonly rolesRepository: Repository<RolesEntity>
     ) {}
-    async find (param : string) {
+    async findById (param : string) {
         try {
             return await this.rolesRepository.findOne({
                 where : {
@@ -19,5 +19,9 @@ export class RolesRepository implements IRolesRepository {
         } catch (error) {
             throw new BadRequestException('this role does not exists');
         }
+    }
+
+    async find(){
+        return await this.rolesRepository.find()
     }
 }
