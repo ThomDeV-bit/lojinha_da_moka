@@ -8,6 +8,7 @@ import { RolesRepository } from '../roles/roles.repository';
 import { v4 } from 'uuid';
 import { UserPermissionDTO } from 'src/api/dtos/userPermission.dto';
 import { RolesEntity } from 'src/database/entities/roles.entity';
+import { UserEntity } from 'src/database/entities/user.entity';
 
 @Injectable()
 export class UserPermissionRepository {
@@ -32,4 +33,16 @@ export class UserPermissionRepository {
         const newUserPermission =  this.userPermissionRepository.create(userPermission);
         return await this.userPermissionRepository.save(newUserPermission);
     }
+
+    async searchRole(userId : UserEntity | any){
+        return await this.userPermissionRepository.find({
+            where : {
+                user : userId
+            },
+            relations : {
+                roles : true
+            }
+        })
+    }
+
 }

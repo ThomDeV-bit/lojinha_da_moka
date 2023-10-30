@@ -7,12 +7,12 @@ import { UserPermissionController } from './controllers/user-permission.controll
 import { SingInController } from './controllers/singIn.controller';
 @Module({})
 export class ApiModule {
-    static register (options: typeof OPTIONS_TYPE): DynamicModule {
+    static register(options: typeof OPTIONS_TYPE): DynamicModule {
         return {
             module: ApiModule,
-            controllers: [ UserController, UserPermissionController, SingInController],
+            controllers: [UserController, UserPermissionController, SingInController],
             global: true,
-            imports: [ options.useCaseModule ],
+            imports: [options.useCaseModule],
             providers: [
                 {
                     provide: APP_INTERCEPTOR,

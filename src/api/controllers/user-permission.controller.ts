@@ -1,4 +1,4 @@
-import { Body, Controller, Param, Post, Query, Request, UnprocessableEntityException, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, Query, Request, UnprocessableEntityException, UseGuards } from "@nestjs/common";
 import { ApiSecurity, ApiTags } from "@nestjs/swagger";
 import { UserPermissionUseCase } from "src/use-case/userPermission/user-permission-use-case";
 import { UserPermissionDTO } from "../dtos/userPermission.dto";
@@ -23,4 +23,5 @@ export class UserPermissionController {
             throw new UnprocessableEntityException()
         }
     }
+
 }

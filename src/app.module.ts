@@ -20,7 +20,10 @@ export class AppModule {
                 global: true,
                 secret: process.env.SECRET_KEY,
                 signOptions: {
-                    expiresIn: process.env.EXPIRES_IN
+                    expiresIn: 3600
+                },
+                verifyOptions: {
+                    ignoreExpiration: false
                 }
             }),
             TypeormModule.register(RepositoryModule.register()),
