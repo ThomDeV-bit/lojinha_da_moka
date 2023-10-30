@@ -27,18 +27,16 @@ export class UserPermissionRepository {
         const permission = await this.searchRole(user)
 
         const allRoles = await this.rolesRepository.find()
-        console.log(allRoles, "&7777777777777777777777777777777")
         if (permission.length >= allRoles.length) throw new ForbiddenException('Esse usuario ja tem todas as permissoes')
 
         let Isvalid;
 
-        permission.map((roles) => console.log(roles.roles.id != role ? Isvalid = true : Isvalid = false));
+        permission.map((roles) => roles.roles.id != role ? Isvalid = true : Isvalid = false);
         if (Isvalid === false) throw new ForbiddenException('Usuario ja contem essa permissão')
 
         const roles = await this.rolesRepository.findById(role);
-        console.log(user, roles, "*****************aaaaaaaaa*****************")
 
-        if (user === null || roles === null ) {
+        if (user === null || roles === null) {
             throw new BadRequestException('Verifique se o usuario ou a permissao e valida');
         }
 

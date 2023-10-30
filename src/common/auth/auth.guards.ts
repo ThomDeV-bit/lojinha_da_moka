@@ -16,7 +16,6 @@ export class AuthGuard implements CanActivate {
     ) { }
 
     async canActivate(context: ExecutionContext): Promise<boolean> {
-        const response = context.switchToHttp().getResponse<Response>()
         const requiredRoles = this.reflector.getAllAndOverride<Role[]>(ROLES_KEY, [
             context.getHandler(),
             context.getClass(),
@@ -36,8 +35,6 @@ export class AuthGuard implements CanActivate {
         } catch (error) {
             throw new UnauthorizedException('')
         }
-        requiredRoles.map((roles)=> console.log(roles,'******************'))
-
         return requiredRoles.some((roles) => request.user?.role === roles)
     }
     private extractTokenFromHeader(request: Request): string | undefined {
