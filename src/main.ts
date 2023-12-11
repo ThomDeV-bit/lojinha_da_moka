@@ -14,6 +14,7 @@ async function bootstrap() {
     });
 
     app.flushLogs()
+    
 
     const config = new DocumentBuilder()
         .setTitle('Lojinha da moka')

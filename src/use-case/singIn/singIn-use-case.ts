@@ -1,4 +1,4 @@
-import {  Inject, Injectable, UnauthorizedException } from "@nestjs/common";
+import { Inject, Injectable, UnauthorizedException } from "@nestjs/common";
 import { SingInDTO } from "src/api/dtos/singIn.dto";
 import { UserEntity } from "src/database/entities/user.entity";
 import { TYPEORM_TOKENS } from "src/database/reposiotory/tokens";
@@ -7,12 +7,15 @@ import { compare, hash } from 'bcrypt'
 import { JwtService } from "@nestjs/jwt";
 import * as dotenv from "dotenv";
 import { UserPermissionRepository } from "src/database/reposiotory/userPermission/user-permission.repository";
+import { ClientProxy, EventPattern } from "@nestjs/microservices";
+import { CreateUserEvent } from "src/api/dtos/eventEmiter.dto";
 
 @Injectable()
 
 export class SingInUseCase {
 
     constructor(
+
         @Inject(TYPEORM_TOKENS.USER_REPOSITORY)
         private readonly userRepository: UserRepository,
         @Inject(TYPEORM_TOKENS.USER_PERMISSION_REPOSIOTRY)
@@ -26,7 +29,7 @@ export class SingInUseCase {
         const users: UserEntity = await this.userRepository.findOneByEmail(userSingIn.email)
         const userPermission = await this.userPermissionRepository.searchRole(users)
         console.log(userPermission)
-        const roles = userPermission.filter((role) => role.roles.role === 'admin' ||role.roles.role === 'user')
+        const roles = userPermission.filter((role) => role.roles.role === 'admin' || role.roles.role === 'user')
         console.log(roles)
         for (const role in roles) {
             permission = roles[role].roles.role
@@ -47,8 +50,8 @@ export class SingInUseCase {
         const passwordValid = await compare(userSingIn.password, password)
 
         if (passwordValid === false) throw new UnauthorizedException('Senha invalida')
-
         const payload = { sub: users.id, role: permission }
+
 
         return {
             acess_token: await this.jwtToken.signAsync(payload),

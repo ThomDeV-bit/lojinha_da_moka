@@ -7,7 +7,6 @@ import { UserRepository } from '../user/user.repository';
 import { RolesRepository } from '../roles/roles.repository';
 import { v4 } from 'uuid';
 import { UserPermissionDTO } from 'src/api/dtos/userPermission.dto';
-import { RolesEntity } from 'src/database/entities/roles.entity';
 import { UserEntity } from 'src/database/entities/user.entity';
 
 @Injectable()
@@ -27,7 +26,6 @@ export class UserPermissionRepository {
         const permission = await this.searchRole(user)
 
         const allRoles = await this.rolesRepository.find()
-        console.log(allRoles, "&7777777777777777777777777777777")
         if (permission.length >= allRoles.length) throw new ForbiddenException('Esse usuario ja tem todas as permissoes')
 
         let Isvalid;
@@ -36,7 +34,6 @@ export class UserPermissionRepository {
         if (Isvalid === false) throw new ForbiddenException('Usuario ja contem essa permissão')
 
         const roles = await this.rolesRepository.findById(role);
-        console.log(user, roles, "*****************aaaaaaaaa*****************")
 
         if (user === null || roles === null ) {
             throw new BadRequestException('Verifique se o usuario ou a permissao e valida');

@@ -1,22 +1,25 @@
 import { Injectable, Inject, NotFoundException } from "@nestjs/common";
-import { UserController } from "src/api/controllers/user.controller";
-import { UserEntity } from "src/database/entities/user.entity";
+import { ClientProxy } from "@nestjs/microservices";
+import { CreateUserEvent } from "src/api/dtos/eventEmiter.dto";
 import { TYPEORM_TOKENS } from "src/database/reposiotory/tokens";
 import { UserRepository } from "src/database/reposiotory/user/user.repository";
 
 @Injectable()
 export class UserSearchUseCase {
     constructor(
+        @Inject('COMMUNICATION')
+        private readonly communicationClient: ClientProxy,
         @Inject(TYPEORM_TOKENS.USER_REPOSITORY)
         private readonly userRepository: UserRepository
     ) { }
 
     async find() {
         try {
-            return await this.userRepository.findAll()
+            const users = await this.userRepository.findAll()
+            this.communicationClient.emit('search_users', new CreateUserEvent(`lista de usuarios`))
+            return users
         } catch (error) {
             throw new NotFoundException()
         }
-
     }
 }

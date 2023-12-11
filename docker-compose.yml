@@ -1,0 +1,40 @@
+version: '3.9'
+services:
+    mysql:
+        image: mysql:latest
+        container_name: loja-db
+        networks:
+            - compose-bridge
+        environment:
+            MYSQL_DATABASE: 'loja'
+            MYSQL_USER: 'root'
+            MYSQL_PASSWORD: 'root123'
+            MYSQL_ROOT_PASSWORD: 'root123'
+            MYSQL_TCP_PORT : 3306
+        ports:
+            - '8080:3000'
+        volumes:
+            - C:\Users\thomaz.josetti\Desktop\mysql:/var/lib/mysql
+
+    api:
+        image: thomdev24/app-node:1.0
+
+        container_name: lojinha_da_moka
+
+        environment:
+            MYSQL_DATABASE: 'loja'
+            MYSQL_USER: 'root'
+            MYSQL_PASSWORD: 'root123'
+            MYSQL_ROOT_PASSWORD: 'root123'
+            MYSQL_TCP_PORT : 3306
+
+        networks:
+            - compose-bridge
+        ports:
+            - 3000:3000
+
+networks:
+    compose-bridge:
+        driver: bridge
+
+

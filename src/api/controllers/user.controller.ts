@@ -20,15 +20,13 @@ import { Role } from 'src/common/auth/role/role.enum';
 
 @Controller('users')
 @ApiTags('users')
-@ApiSecurity('JWT-auth')
 export class UserController {
     constructor(
         private readonly userSearchUseCase: UserSearchUseCase,
         private readonly userCreateUseCase: UserCreateUseCase
     ) { }
 
-    @UseGuards(AuthGuard)
-    @Roles(Role.Admin)
+
     @Get('search')
     async find(@Request() req) {
         req.user = await this.userSearchUseCase.find()

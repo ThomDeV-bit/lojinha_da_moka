@@ -6,22 +6,34 @@ import { RolesRepository } from 'src/database/reposiotory/roles/roles.repository
 import { UserDTO } from 'src/api/dtos/user.dto';
 import { v4 } from 'uuid';
 import { hash } from 'bcrypt';
+import { ClientProxy } from '@nestjs/microservices';
+import { CreateUserEvent } from 'src/api/dtos/eventEmiter.dto';
 
 
 @Injectable()
 export class UserCreateUseCase {
-    constructor (
+    constructor(
+        @Inject('COMMUNICATION')
+        private readonly communicationClient: ClientProxy,
         @Inject(TYPEORM_TOKENS.USER_REPOSITORY)
         private readonly userRepository: UserRepository,
 
-    ) {}
-    async create (user : UserDTO) {
+    ) { }
+
+
+    async create(user: UserDTO) {
         try {
             user.id = v4()
-            user.password = await hash(user.password,10)
-            return await this.userRepository.insert(user)
+            user.password = await hash(user.password, 10)
+            const users = await this.userRepository.insert(user)
+            this.communicationClient.emit('user_created', new CreateUserEvent(user.email))
+            return users
+
         } catch (error) {
-            throw new UnprocessableEntityException('Falha ao criar usuario');
+            if (error?.code?.includes('ER_DUP_ENTRY')) {
+                throw new UnprocessableEntityException('Este email ja esta em uso')
+            }
+            throw new UnprocessableEntityException(error?.data);
         }
     }
 }
