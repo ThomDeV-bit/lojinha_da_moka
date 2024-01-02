@@ -4,12 +4,10 @@ import { RepositoryModule } from './database/reposiotory/repository.module';
 import { UseCaseModule } from './use-case/use-cases.module';
 import { ApiModule } from './api/api.module';
 import { LoggerModule } from 'nestjs-pino';
-import { logger } from './common/logger/logger';
 import { JwtModule } from '@nestjs/jwt';
 import * as dotenv from 'dotenv';
 import { ScheduleModule } from '@nestjs/schedule';
 import pino from 'pino';
-import { ClientsModule, Transport } from '@nestjs/microservices';
 
 @Module({})
 export class AppModule {

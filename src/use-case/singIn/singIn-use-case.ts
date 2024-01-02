@@ -28,6 +28,21 @@ export class SingInUseCase {
         let permission;
         const users: UserEntity = await this.userRepository.findOneByEmail(userSingIn.email)
 
+        const userPermission = await this.userPermissionRepository.searchRole(users)
+
+        const roles = userPermission.filter((role) => role.roles.role === 'admin' || role.roles.role === 'user')
+        for (const role in roles) {
+            permission = roles[role].roles.role
+            switch (permission) {
+                case 'admin': permission = roles[role].roles.role
+                    break;
+                case 'user': permission = roles[role].roles.role
+                    break;
+
+                default:
+                    break;
+            }
+        }
         if (!users) throw new UnauthorizedException('Usuario invalido')
 
         const password = users.password
@@ -35,7 +50,7 @@ export class SingInUseCase {
         const passwordValid = await compare(userSingIn.password, password)
 
         if (passwordValid === false) throw new UnauthorizedException('Senha invalida')
-        
+
         const payload = { sub: users.id, role: permission }
 
         return {
