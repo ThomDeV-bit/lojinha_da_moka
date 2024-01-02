@@ -30,12 +30,12 @@ export class UserPermissionRepository {
 
         let Isvalid;
 
-        permission.map((roles) => console.log(roles.roles.id != role ? Isvalid = true : Isvalid = false));
+        permission.map((roles) => roles.roles.id != role ? Isvalid = true : Isvalid = false);
         if (Isvalid === false) throw new ForbiddenException('Usuario ja contem essa permissão')
 
         const roles = await this.rolesRepository.findById(role);
 
-        if (user === null || roles === null ) {
+        if (user === null || roles === null) {
             throw new BadRequestException('Verifique se o usuario ou a permissao e valida');
         }
 

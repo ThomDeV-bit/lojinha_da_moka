@@ -6,12 +6,13 @@ import { GlobalResponse } from 'src/common/globlaResponse/global-response';
 import { UserPermissionController } from './controllers/user-permission.controller';
 import { SingInController } from './controllers/singIn.controller';
 import { TaskController } from './controllers/task';
+import { AuthGuard } from 'src/common/auth/auth.guards';
 @Module({})
 export class ApiModule {
     static register(options: typeof OPTIONS_TYPE): DynamicModule {
         return {
             module: ApiModule,
-            controllers: [UserController, UserPermissionController, SingInController,TaskController],
+            controllers: [UserController, UserPermissionController, SingInController, TaskController],
             global: true,
             imports: [options.useCaseModule],
             providers: [

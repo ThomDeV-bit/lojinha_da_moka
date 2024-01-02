@@ -11,6 +11,7 @@ export class SingInController {
     constructor (
         private readonly singInUseCase : SingInUseCase
     ){}
+    
     @Post('singIn')
     async singIn(@Body()user : SingInDTO){
         return await this.singInUseCase.singIn(user)

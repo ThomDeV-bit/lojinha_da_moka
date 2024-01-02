@@ -37,16 +37,6 @@ export class AppModule {
                     },
                 }
             }),
-
-            ClientsModule.register(
-                {
-                    isGlobal: true,
-                    clients: [{
-                        name: 'COMMUNICATION',
-                        transport: Transport.TCP
-                    }]
-                }
-            ),
             ScheduleModule.forRoot(),
             JwtModule.register({
                 global: true,

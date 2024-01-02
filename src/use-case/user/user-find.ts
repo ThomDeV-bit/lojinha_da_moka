@@ -7,8 +7,6 @@ import { UserRepository } from "src/database/reposiotory/user/user.repository";
 @Injectable()
 export class UserSearchUseCase {
     constructor(
-        @Inject('COMMUNICATION')
-        private readonly communicationClient: ClientProxy,
         @Inject(TYPEORM_TOKENS.USER_REPOSITORY)
         private readonly userRepository: UserRepository
     ) { }
@@ -16,7 +14,6 @@ export class UserSearchUseCase {
     async find() {
         try {
             const users = await this.userRepository.findAll()
-            this.communicationClient.emit('search_users', new CreateUserEvent(`lista de usuarios`))
             return users
         } catch (error) {
             throw new NotFoundException()

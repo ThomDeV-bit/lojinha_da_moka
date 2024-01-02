@@ -4,20 +4,24 @@ import { UserPermissionUseCase } from "src/use-case/userPermission/user-permissi
 import { UserPermissionDTO } from "../dtos/userPermission.dto";
 import { logger } from "src/common/logger/logger";
 import { AuthGuard } from "src/common/auth/auth.guards";
+import { Roles } from "src/common/auth/role/role.decorator";
+import { Role } from "src/common/auth/role/role.enum";
 
 @Controller('userPermission')
 @ApiTags('userPermission')
 
 export class UserPermissionController {
     constructor(private readonly userPermissionUseCase: UserPermissionUseCase) { }
-    @UseGuards(AuthGuard)
-    @Post('create')
 
+
+
+    @UseGuards(AuthGuard)
+    @Roles(Role.User)
+    @Post('create')
     async createPermission(
         @Query('user') userId: string, @Query('roles') role: string,
         @Body() userPermission: UserPermissionDTO, @Request() req) {
         req.user = await this.userPermissionUseCase.createPermission(userId, role, userPermission)
-
         return req.user
     }
 }

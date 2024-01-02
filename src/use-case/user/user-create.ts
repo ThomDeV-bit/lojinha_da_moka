@@ -13,8 +13,6 @@ import { CreateUserEvent } from 'src/api/dtos/eventEmiter.dto';
 @Injectable()
 export class UserCreateUseCase {
     constructor(
-        @Inject('COMMUNICATION')
-        private readonly communicationClient: ClientProxy,
         @Inject(TYPEORM_TOKENS.USER_REPOSITORY)
         private readonly userRepository: UserRepository,
 
@@ -26,9 +24,7 @@ export class UserCreateUseCase {
             user.id = v4()
             user.password = await hash(user.password, 10)
             const users = await this.userRepository.insert(user)
-            this.communicationClient.emit('user_created', new CreateUserEvent(user.email))
             return users
-
         } catch (error) {
             if (error?.code?.includes('ER_DUP_ENTRY')) {
                 throw new UnprocessableEntityException('Este email ja esta em uso')

@@ -1,6 +1,6 @@
 import { CanActivate, ExecutionContext, ForbiddenException, Injectable, UnauthorizedException } from '@nestjs/common';;
 import { JwtService } from '@nestjs/jwt';
-import { Request, Response, response } from 'express';
+import { Request } from 'express';
 import { ROLES_KEY } from './role/role.decorator';
 import { Reflector } from '@nestjs/core';
 import { Role } from './role/role.enum';
@@ -16,7 +16,6 @@ export class AuthGuard implements CanActivate {
     ) { }
 
     async canActivate(context: ExecutionContext): Promise<boolean> {
-        const response = context.switchToHttp().getResponse<Response>()
         const requiredRoles = this.reflector.getAllAndOverride<Role[]>(ROLES_KEY, [
             context.getHandler(),
             context.getClass(),
@@ -34,14 +33,13 @@ export class AuthGuard implements CanActivate {
             request.user = payload
             console.log(request.user)
         } catch (error) {
-            throw new UnauthorizedException('')
+            throw new UnauthorizedException('usuario sem permissao')
         }
-        requiredRoles.map((roles)=> console.log(roles,'******************'))
-
         return requiredRoles.some((roles) => request.user?.role === roles)
     }
     private extractTokenFromHeader(request: Request): string | undefined {
         const [type, token] = request.headers.authorization?.split(' ') ?? [];
+        console.log(request.headers)
         return type === "Bearer" ? token : undefined
     }
 }

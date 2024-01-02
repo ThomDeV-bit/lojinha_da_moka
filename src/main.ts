@@ -14,7 +14,7 @@ async function bootstrap() {
     });
 
     app.flushLogs()
-    
+
 
     const config = new DocumentBuilder()
         .setTitle('Lojinha da moka')
@@ -34,7 +34,7 @@ async function bootstrap() {
     const document = SwaggerModule.createDocument(app, config);
     SwaggerModule.setup('swagger', app, document);
 
-    await app.listen(3000);
+    await app.listen(3001);
 
     const url = await app.getUrl()
     console.log(`Swagger application is running on: ${url}/swagger`)
