@@ -20,7 +20,7 @@ export class AppModule {
                     level: 'info',
                     timestamp: () => `,"timestamp":"${new Date().toLocaleString()}"`,
                     stream: pino.destination({
-                        dest: `./console_node_log`, // omit for stdout
+                        dest: `./console_node.log`, // omit for stdout
                         sync: false, // Asynchronous logging,
                     }),
                     serializers: {

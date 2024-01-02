@@ -6,6 +6,7 @@ import { Reflector } from '@nestjs/core';
 import { Role } from './role/role.enum';
 import { UserDTO } from 'src/api/dtos/user.dto';
 import { UserEntity } from 'src/database/entities/user.entity';
+import { Console } from 'console';
 
 
 @Injectable()
@@ -23,7 +24,7 @@ export class AuthGuard implements CanActivate {
 
         const request = context.switchToHttp().getRequest()
         const token = this.extractTokenFromHeader(request)
-
+        
         if (!token) throw new UnauthorizedException('Usuarios errado')
         try {
             const payload: UserEntity | undefined = await this.jwtToken.verifyAsync(

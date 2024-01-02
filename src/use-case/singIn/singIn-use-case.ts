@@ -46,12 +46,12 @@ export class SingInUseCase {
         if (!users) throw new UnauthorizedException('Usuario invalido')
 
         const password = users.password
-
-        const passwordValid = await compare(userSingIn.password, password)
+        console.log(password)
+        const passwordValid = await compare(userSingIn?.password, password)
 
         if (passwordValid === false) throw new UnauthorizedException('Senha invalida')
 
-        const payload = { sub: users.id, role: permission }
+        const payload = { id: users.id, role: permission }
 
         return {
             acess_token: await this.jwtToken.signAsync(payload),
