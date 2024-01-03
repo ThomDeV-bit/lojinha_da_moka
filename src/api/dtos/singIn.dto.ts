@@ -17,7 +17,7 @@ export class SingInDTO {
     password: string
 
 
-    @ApiProperty({ name: 'grant_type', required: true })
+    @ApiProperty({ name: 'grant_type', required: false })
     @Expose({ name: 'grant_type' })
     grant_type: GRANT_TYPE
 

@@ -10,7 +10,8 @@ async function bootstrap() {
         console.log('Database Connected')
     })
     const app = await NestFactory.create<INestApplication>(AppModule.register(), {
-        bufferLogs: true
+        bufferLogs: true,
+        cors: true
     });
 
     app.flushLogs()

@@ -9,7 +9,7 @@ import { throwIfEmpty } from "rxjs";
 @Controller('singIn')
 @ApiTags('singIn')
 
-export class SingInController {
+export class SignInController {
     constructor(
         private readonly singInUseCase: SingInUseCase,
         private readonly refreTokenUseCase: RefreshTokenUseCase
