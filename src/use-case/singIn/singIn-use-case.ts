@@ -54,7 +54,7 @@ export class SingInUseCase {
         const payload = { id: users.id, role: permission }
 
         return {
-            acess_token: await this.jwtToken.signAsync(payload),
+            access_token: await this.jwtToken.signAsync(payload),
             refresh_token: await this.jwtToken.signAsync(payload, { expiresIn: 3600 * 24 }),
             token_type: "Bearer",
             expires_in: 3600

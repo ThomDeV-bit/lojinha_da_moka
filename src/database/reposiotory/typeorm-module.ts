@@ -7,11 +7,13 @@ import { TYPEORM_TOKENS } from './tokens';
 import { RolesEntity } from '../entities/roles.entity';
 import { UserPermissionRepository } from './userPermission/user-permission.repository';
 import { UserPermissionEntity } from '../entities/user-permission.entiry';
+import { ProductEntity } from '../entities/product.entity';
+import { ProductRepository } from './product/product.repository';
 
 @Module({})
 export class TypeormModule {
-    static register (options: typeof OPTIONS_TYPE): DynamicModule {
-        const entitiesSchema = [ UserEntity, RolesEntity, UserPermissionEntity ];
+    static register(options: typeof OPTIONS_TYPE): DynamicModule {
+        const entitiesSchema = [UserEntity, RolesEntity, UserPermissionEntity, ProductEntity];
         const config = dataSourceOptions;
         return {
             module: TypeormModule,
@@ -27,7 +29,13 @@ export class TypeormModule {
                     }
                 })
             ],
-            exports: [ TYPEORM_TOKENS.USER_REPOSITORY, TYPEORM_TOKENS.ROLES_REPOSIOTRY, TYPEORM_TOKENS.USER_PERMISSION_REPOSIOTRY],
+
+            exports: [TYPEORM_TOKENS.USER_REPOSITORY,
+            TYPEORM_TOKENS.ROLES_REPOSIOTRY,
+            TYPEORM_TOKENS.USER_PERMISSION_REPOSIOTRY,
+            TYPEORM_TOKENS.PRODUCT_REPOSITORY
+            ],
+
             providers: [
                 {
                     provide: TYPEORM_TOKENS.USER_REPOSITORY,
@@ -38,8 +46,12 @@ export class TypeormModule {
                     useClass: options.rolesRepository
                 },
                 {
-                    provide : TYPEORM_TOKENS.USER_PERMISSION_REPOSIOTRY,
-                    useClass : UserPermissionRepository
+                    provide: TYPEORM_TOKENS.USER_PERMISSION_REPOSIOTRY,
+                    useClass: UserPermissionRepository
+                },
+                {
+                    provide: TYPEORM_TOKENS.PRODUCT_REPOSITORY,
+                    useClass: ProductRepository
                 }
             ]
         };

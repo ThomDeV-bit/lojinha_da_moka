@@ -16,16 +16,9 @@ export class SignInController {
     ) { }
 
     @Post('singIn')
-    async singIn(@Query() user: SingInDTO, @Request() req) {
-        if (user.grant_type === GRANT_TYPE.LOGIN) {
-            req.user = await this.singInUseCase.singIn(user)
-            return req.user
-        }
-        else if (user.grant_type === GRANT_TYPE.REFRESH_TOKEN) {
-            return await this.refreTokenUseCase.refreshToken(user.refresh_token)
-        }
-        else{
-            throw new UnauthorizedException('Grant_type invalido')
-        }
+    async singIn(@Body() user: SingInDTO, @Request() req) {
+        req.user = await this.singInUseCase.singIn(user)
+        return req.user
+
     }
 }

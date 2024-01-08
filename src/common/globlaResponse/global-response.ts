@@ -5,7 +5,7 @@ import { Observable, map } from 'rxjs';
 export interface IGlobalResponse<T> {
     STATUS: string;
     MENSAGE: string;
-    RESPONSE: any[];
+    RESPONSE: any
 }
 
 export class GlobalResponse<T> implements NestInterceptor<T, IGlobalResponse<T>> {
@@ -37,7 +37,7 @@ export class GlobalResponse<T> implements NestInterceptor<T, IGlobalResponse<T>>
             map(responseBody => ({
                 STATUS,
                 MENSAGE,
-                RESPONSE: Array.isArray(responseBody) ? responseBody : [responseBody]
+                RESPONSE: responseBody
             }))
         );
     }
