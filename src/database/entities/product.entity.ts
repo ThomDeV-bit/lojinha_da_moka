@@ -1,4 +1,7 @@
-import { Column, Entity, PrimaryColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryColumn } from "typeorm";
+import { ProductsCategorietEntity } from "./products-categories.entity";
+import {  ProductImagesEntity } from "./products-images.entity";
+import { ProductsByOrderEntity } from "./productsByOrder.entity";
 
 
 @Entity({ name: 'products' })
@@ -16,6 +19,14 @@ export class ProductEntity {
     @Column({ name: 'quantity', nullable: false })
     quantity: number
 
-    @Column({ name: 'image', type: 'blob', nullable: true })
-    image: Blob
+
+    @OneToMany(()=> ProductsCategorietEntity, (categorie) => categorie.product)
+    categorie : ProductsCategorietEntity
+
+    
+    @OneToMany(()=> ProductImagesEntity, (image) => image.product)
+    image : ProductImagesEntity
+
+    @OneToMany(()=> ProductsByOrderEntity,(productsByOrder)=> productsByOrder.products)
+    productsByOrder: ProductsByOrderEntity
 }

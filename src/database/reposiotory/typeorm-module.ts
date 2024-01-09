@@ -1,7 +1,6 @@
 import { DynamicModule, Module } from '@nestjs/common';
 import { OPTIONS_TYPE } from './typeorm-module-definition';
 import { UserEntity } from '../entities/user.entity';
-import dataSource, { dataSourceOptions } from '../config/database.config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TYPEORM_TOKENS } from './tokens';
 import { RolesEntity } from '../entities/roles.entity';
@@ -9,11 +8,16 @@ import { UserPermissionRepository } from './userPermission/user-permission.repos
 import { UserPermissionEntity } from '../entities/user-permission.entiry';
 import { ProductEntity } from '../entities/product.entity';
 import { ProductRepository } from './product/product.repository';
+import { dataSourceOptions } from '../config/database.config';
+import { ProductImagesEntity } from '../entities/products-images.entity';
+import { OrderstEntity } from '../entities/orders.entity';
+import { ProductsCategorietEntity } from '../entities/products-categories.entity';
+import { ProductsByOrderEntity } from '../entities/productsByOrder.entity';
 
 @Module({})
 export class TypeormModule {
     static register(options: typeof OPTIONS_TYPE): DynamicModule {
-        const entitiesSchema = [UserEntity, RolesEntity, UserPermissionEntity, ProductEntity];
+        const entitiesSchema = [UserEntity, RolesEntity, UserPermissionEntity,ProductEntity,ProductImagesEntity, ProductsByOrderEntity,ProductsCategorietEntity,OrderstEntity];
         const config = dataSourceOptions;
         return {
             module: TypeormModule,

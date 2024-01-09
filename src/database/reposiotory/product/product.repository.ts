@@ -17,6 +17,12 @@ export class ProductRepository {
         return await this.productRepository.find()
     }
 
+    async findById(id: string) {
+        return await this.productRepository.findBy({
+            id
+        })
+    }
+
     async insertProduct(product: ProductDTO) {
         const productSave = this.productRepository.create(product)
         return await this.productRepository.save(productSave)

@@ -11,6 +11,8 @@ export class UserPermissionEntity {
     @ManyToOne(()=> UserEntity,(user)=> user.userPermissions)
     user : UserEntity
 
-    @ManyToOne(()=> RolesEntity, (roles)=> roles.userPermission)
+    @ManyToOne(()=> RolesEntity, (roles)=> roles.userPermission, {
+        cascade : true
+    })
     roles : RolesEntity
 }
