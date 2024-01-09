@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { ProductDTO } from "src/api/dtos/product.dto";
 import { ProductEntity } from "src/database/entities/product.entity";
-import { Repository } from "typeorm";
+import { In, Repository } from "typeorm";
 
 @Injectable()
 
@@ -13,13 +13,25 @@ export class ProductRepository {
         private readonly productRepository: Repository<ProductEntity>
     ) { }
 
-    async find() {
-        return await this.productRepository.find()
+    async find(product: string) {
+        const result = await this.productRepository.findOne({
+            where: {
+                id: product
+            }
+        })
+        return result
     }
 
-    async findById(id: string) {
-        return await this.productRepository.findBy({
-            id
+    async findById(id: string[]) {
+        return await this.productRepository.find({
+            where: {
+                id: In(id)
+            },
+            relations: {
+                categorie: true,
+                image: true,
+                productsByOrder: true
+            }
         })
     }
 

@@ -1,19 +1,24 @@
-import { Body, Controller, Get, Post, Req, UnprocessableEntityException, UploadedFile, UseInterceptors } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, Query, Req, UnprocessableEntityException, UploadedFile, UseInterceptors } from "@nestjs/common";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { ApiBody, ApiConsumes, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { ProductUsecase } from "src/use-case/product/product-usecase";
 import { ProductDTO } from "../dtos/product.dto";
+import { ProductImageUsecase } from "src/use-case/product-images/product-image-usecase";
+import { ProductImageDTO } from "../dtos/productstImage.dto";
 
 @Controller('product')
 @ApiTags('product')
 export class ProductController {
     constructor(
-        private readonly productUsecase: ProductUsecase
+        private readonly productUsecase: ProductUsecase,
+        private readonly productImageUsecase: ProductImageUsecase,
+
+
     ) { }
 
     @Get('/')
-    async getProduct() {
-        return await this.productUsecase.getProcuct()
+    async getProduct(@Query('id') id: string) {
+        return await this.productUsecase.getProcuct(id)
     }
 
     @Post('create')
@@ -22,25 +27,19 @@ export class ProductController {
         schema: {
             type: 'object',
             properties: {
-                name: { type: 'string' },
-                price: { type: 'integer' },
-                quantity: { type: 'integer' },
-                image: {
+                file: {
                     type: 'string',
                     format: 'binary',
                 },
             },
         },
     })
-    @UseInterceptors(FileInterceptor('image'))
-    async createProduct(@Body() product: ProductDTO, @UploadedFile() image: Express.Multer.File) {
-        try {
-            const products = await this.productUsecase.createProduct(product, image)
-            console.log({ products, image })
-            return { products, image }
-        } catch (error) {
-            throw new UnprocessableEntityException('Erro ao adicionar Produto')
-        }
+    @UseInterceptors(FileInterceptor('file'))
+    async createProduct(@Query('id') productId: string, @UploadedFile() file: Express.Multer.File) {
+        const products = await this.productImageUsecase.createProductImage(productId, file)
+        console.log({ products, file })
+        return { products, file }
+
 
     }
 

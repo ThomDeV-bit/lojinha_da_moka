@@ -3,7 +3,7 @@ import { ProductEntity } from "./product.entity";
 import { OrderstEntity } from "./orders.entity";
 
 
-@Entity({ name: 'products' })
+@Entity({ name: 'products_by_order' })
 
 export class ProductsByOrderEntity {
     @PrimaryColumn('uuid')

@@ -12,8 +12,8 @@ export class ProductUsecase {
         private readonly productRepository: ProductRepository
     ) { }
 
-    async getProcuct() {
-        const product = await this.productRepository.find()
+    async getProcuct(id: string) {
+        const product = await this.productRepository.find(id)
         return product
     }
 
@@ -24,7 +24,6 @@ export class ProductUsecase {
             name: product.name,
             price: product.price,
             quantity: product.quantity,
-            image: image.buffer
         })
         return products
     }
