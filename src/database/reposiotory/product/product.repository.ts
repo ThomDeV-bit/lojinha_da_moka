@@ -13,10 +13,14 @@ export class ProductRepository {
         private readonly productRepository: Repository<ProductEntity>
     ) { }
 
-    async find(product: string) {
+    async find(name: string) {
         const result = await this.productRepository.findOne({
             where: {
-                id: product
+                name
+            },
+            relations: {
+                image: true,
+                categorie: true
             }
         })
         return result

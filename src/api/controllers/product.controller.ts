@@ -5,6 +5,7 @@ import { ProductUsecase } from "src/use-case/product/product-usecase";
 import { ProductDTO } from "../dtos/product.dto";
 import { ProductImageUsecase } from "src/use-case/product-images/product-image-usecase";
 import { ProductImageDTO } from "../dtos/productstImage.dto";
+import { ProductsCategorietDTO } from "../dtos/productCategorie.dto";
 
 @Controller('product')
 @ApiTags('product')
@@ -17,11 +18,11 @@ export class ProductController {
     ) { }
 
     @Get('/')
-    async getProduct(@Query('id') id: string) {
-        return await this.productUsecase.getProcuct(id)
+    async getProduct(@Query('name') name: string) {
+        return await this.productUsecase.getProcuct(name)
     }
 
-    @Post('create')
+    @Post('image/create')
     @ApiConsumes('multipart/form-data')
     @ApiBody({
         schema: {
@@ -35,12 +36,39 @@ export class ProductController {
         },
     })
     @UseInterceptors(FileInterceptor('file'))
-    async createProduct(@Query('id') productId: string, @UploadedFile() file: Express.Multer.File) {
+    async createProductImage(@Query('product') productId: string, @UploadedFile() file: Express.Multer.File) {
         const products = await this.productImageUsecase.createProductImage(productId, file)
         console.log({ products, file })
         return { products, file }
 
 
+    };
+
+
+    @Post('create')
+    @ApiConsumes('multipart/form-data')
+    @ApiBody({
+        schema: {
+            type: 'object',
+            properties: {
+                name: { type: 'string' },
+                price: { type: 'integer' },
+                quantity: { type: 'integer' },
+                file: {
+                    type: 'string',
+                    format: 'binary',
+                },
+            },
+        },
+    })
+    @UseInterceptors(FileInterceptor('file'))
+    async createProduct(
+        @Body() product: ProductDTO,
+        @Query('categoria') categorie: string,
+        @UploadedFile() file: Express.Multer.File) {
+
+        const result = await this.productUsecase.createProduct(product, categorie, file)
+        return result
     }
 
 }
