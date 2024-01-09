@@ -1,4 +1,5 @@
 import { Inject, Injectable } from "@nestjs/common";
+import { ProductDTO } from "src/api/dtos/product.dto";
 import { ProductImageDTO } from "src/api/dtos/productstImage.dto";
 import { ProductEntity } from "src/database/entities/product.entity";
 import { ProductImagesEntity } from "src/database/entities/products-images.entity";
@@ -19,7 +20,7 @@ export class ProductImageUsecase {
 
     async createProductImage(product: string, file: Express.Multer.File) {
         const producId = await this.productRepository.find(product)
-        const create = new ProductImagesEntity()
+        const create = new ProductImageDTO()
         create.id = v4()
         create.image = file.buffer
         create.product = producId
