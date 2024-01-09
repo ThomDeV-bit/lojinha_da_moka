@@ -5,6 +5,7 @@ import { UserPermissionRepository } from './userPermission/user-permission.repos
 import { ProductRepository } from './product/product.repository';
 import { OrdersRepository } from './orders/orders.repository';
 import { ProductImagesRepository } from './product-images/product-images.repository';
+import { ProductsCategorieRepository } from './product-categorie/product-categorie.repository';
 
 export interface ModuleOptions {
     userRepository: Type<IUserRepository>;
@@ -13,6 +14,7 @@ export interface ModuleOptions {
     productRepository: Type<ProductRepository>
     orderRepository: Type<OrdersRepository>
     productsImageRepository: Type<ProductImagesRepository>
+    productCategorieRepository : Type<ProductsCategorieRepository>
 }
 
 export const { ConfigurableModuleClass, MODULE_OPTIONS_TOKEN, OPTIONS_TYPE } =

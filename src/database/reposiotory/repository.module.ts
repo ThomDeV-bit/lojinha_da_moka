@@ -1,4 +1,5 @@
 import { OrdersRepository } from "./orders/orders.repository";
+import { ProductsCategorieRepository } from "./product-categorie/product-categorie.repository";
 import { ProductImagesRepository } from "./product-images/product-images.repository";
 import { ProductRepository } from "./product/product.repository";
 import { RolesRepository } from "./roles/roles.repository";
@@ -12,7 +13,9 @@ export class RepositoryModule {
             userPermissionRepository: UserPermissionRepository,
             productRepository: ProductRepository,
             orderRepository: OrdersRepository,
-            productsImageRepository: ProductImagesRepository
+            productsImageRepository: ProductImagesRepository,
+            productCategorieRepository : ProductsCategorieRepository
+
 
         }
     }
