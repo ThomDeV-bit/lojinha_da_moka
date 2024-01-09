@@ -13,6 +13,7 @@ import { ProductImagesEntity } from '../entities/products-images.entity';
 import { OrderstEntity } from '../entities/orders.entity';
 import { ProductsCategorietEntity } from '../entities/products-categories.entity';
 import { ProductsByOrderEntity } from '../entities/productsByOrder.entity';
+import { OrdersRepository } from './orders/orders.repository';
 
 @Module({})
 export class TypeormModule {
@@ -37,7 +38,9 @@ export class TypeormModule {
             exports: [TYPEORM_TOKENS.USER_REPOSITORY,
             TYPEORM_TOKENS.ROLES_REPOSIOTRY,
             TYPEORM_TOKENS.USER_PERMISSION_REPOSIOTRY,
-            TYPEORM_TOKENS.PRODUCT_REPOSITORY
+            TYPEORM_TOKENS.PRODUCT_REPOSITORY,
+            TYPEORM_TOKENS.ORDER_REPOSITORY
+
             ],
 
             providers: [
@@ -56,6 +59,10 @@ export class TypeormModule {
                 {
                     provide: TYPEORM_TOKENS.PRODUCT_REPOSITORY,
                     useClass: ProductRepository
+                },
+                {
+                    provide: TYPEORM_TOKENS.ORDER_REPOSITORY,
+                    useClass: OrdersRepository
                 }
             ]
         };

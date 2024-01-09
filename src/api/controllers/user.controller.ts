@@ -10,9 +10,9 @@ import {
     Headers,
 } from '@nestjs/common';
 import { ApiSecurity, ApiTags } from '@nestjs/swagger';
-import { UserSearchUseCase } from 'src/use-case/user/user-find';
+import { UserSearchUseCase } from 'src/use-case/user/user-find-usecase';
 import { UserDTO } from '../dtos/user.dto';
-import { UserCreateUseCase } from 'src/use-case/user/user-create';
+import { UserCreateUseCase } from 'src/use-case/user/user-create-usecase';
 import { AuthGuard } from 'src/common/auth/auth.guards';
 import { ROLES_KEY, Roles } from 'src/common/auth/role/role.decorator';
 import { Role } from 'src/common/auth/role/role.enum';

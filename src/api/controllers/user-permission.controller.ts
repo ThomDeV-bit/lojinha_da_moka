@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Param, Post, Query, Request, UnprocessableEntityException, UseGuards } from "@nestjs/common";
 import { ApiSecurity, ApiTags } from "@nestjs/swagger";
-import { UserPermissionUseCase } from "src/use-case/userPermission/user-permission-use-case";
+import { UserPermissionUseCase } from "src/use-case/userPermission/user-permission-usecase";
 import { UserPermissionDTO } from "../dtos/userPermission.dto";
 import { logger } from "src/common/logger/logger";
 import { AuthGuard } from "src/common/auth/auth.guards";

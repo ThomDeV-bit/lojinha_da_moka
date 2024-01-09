@@ -3,7 +3,7 @@ import { JwtService } from "@nestjs/jwt";
 import { NotFoundError } from "rxjs";
 import { TYPEORM_TOKENS } from "src/database/reposiotory/tokens";
 import { UserRepository } from "src/database/reposiotory/user/user.repository";
-import { UserSearchUseCase } from "../user/user-find";
+import { UserSearchUseCase } from "../user/user-find-usecase";
 
 @Injectable()
 

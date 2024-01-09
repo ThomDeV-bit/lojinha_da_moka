@@ -1,10 +1,10 @@
 import { Test } from '@nestjs/testing';
 import { UserRepository } from '../../database/reposiotory/user/user.repository';
-import { UserCreateUseCase } from '../../use-case/user/user-create'
+import { UserCreateUseCase } from '../../use-case/user/user-create-usecase'
 import { TYPEORM_TOKENS } from '../../database/reposiotory/tokens'
 import { mock } from 'jest-mock-extended';
 import { UserEntity } from 'src/database/entities/user.entity';
-import { UserSearchUseCase } from '../../use-case/user/user-find';
+import { UserSearchUseCase } from '../../use-case/user/user-find-usecase';
 
 describe('UserUsecase', () => {
     const userRepository = mock<UserRepository>();
