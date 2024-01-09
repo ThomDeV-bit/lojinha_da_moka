@@ -12,9 +12,7 @@ export class ProductsByOrderDTO {
 
     updated_at: Date;
 
-   
     order: OrdersDto
 
-  
     products: ProductDTO
 }

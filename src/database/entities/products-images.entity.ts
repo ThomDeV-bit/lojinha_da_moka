@@ -3,15 +3,15 @@ import { ProductEntity } from "./product.entity";
 import { Blob } from "buffer";
 
 
-@Entity({ name: 'productImages' })
+@Entity({ name: 'products_images' })
 
 export class ProductImagesEntity {
     @PrimaryColumn({ name: 'id' })
     id: string
 
     @Column({ name: 'image', type: 'blob', nullable: true })
-    image: Blob
+    image: Blob | any
 
-    @ManyToOne(()=> ProductEntity, (product)=> product.image)
-    product : ProductEntity
+    @ManyToOne(() => ProductEntity, (product) => product.image)
+    product: ProductEntity
 }

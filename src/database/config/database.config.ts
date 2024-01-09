@@ -7,7 +7,7 @@ import { ProductImagesEntity } from '../entities/products-images.entity';
 import { ProductsByOrderEntity } from '../entities/productsByOrder.entity';
 import { ProductsCategorietEntity } from '../entities/products-categories.entity';
 import { OrderstEntity } from '../entities/orders.entity';
-import { Migrations1704805173520 } from '../1704805173520-migrations';
+import { Migrations1704819507332 } from '../migrations/1704819507332-migrations';
 
 export const dataSourceOptions: DataSourceOptions = {
     type: 'mysql',
@@ -18,7 +18,7 @@ export const dataSourceOptions: DataSourceOptions = {
     database: 'loja',
     cache: true,
     entities: [UserEntity, RolesEntity, UserPermissionEntity,ProductEntity,ProductImagesEntity, ProductsByOrderEntity,ProductsCategorietEntity,OrderstEntity],
-    migrations: [Migrations1704805173520],
+    migrations: [Migrations1704819507332],
     logging: 'all'
 };
 

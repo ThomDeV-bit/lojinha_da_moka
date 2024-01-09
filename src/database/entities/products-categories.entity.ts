@@ -2,7 +2,7 @@ import { Column, Entity, ManyToOne, OneToMany, PrimaryColumn } from "typeorm";
 import { ProductEntity } from "./product.entity";
 
 
-@Entity({ name: 'productsCategotie' })
+@Entity({ name: 'products_categorie' })
 
 export class ProductsCategorietEntity {
     @PrimaryColumn({ name: 'id' })
@@ -13,4 +13,4 @@ export class ProductsCategorietEntity {
 
     @ManyToOne(()=> ProductEntity, (product)=> product.categorie)
     product : ProductEntity
-}   
+}

@@ -15,8 +15,6 @@ export class UserPermissionController {
 
 
 
-    @UseGuards(AuthGuard)
-    @Roles(Role.User)
     @Post('create')
     async createPermission(
         @Query('user') userId: string, @Query('roles') role: string,

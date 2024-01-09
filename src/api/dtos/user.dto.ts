@@ -7,7 +7,7 @@ export class UserDTO {
 
     id?: string;
 
-    @ApiProperty({ name: 'name' })
+    @ApiProperty({ name: 'name'})
     @Expose({ name: 'name' })
     name: string;
 

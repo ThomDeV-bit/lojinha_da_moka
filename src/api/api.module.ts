@@ -8,12 +8,13 @@ import { TaskController } from './controllers/task';
 import { AuthGuard } from 'src/common/auth/auth.guards';
 import { SignInController } from './controllers/singIn.controller';
 import { ProductController } from './controllers/product.controller';
+import { OrderController } from './controllers/order.controller';
 @Module({})
 export class ApiModule {
     static register(options: typeof OPTIONS_TYPE): DynamicModule {
         return {
             module: ApiModule,
-            controllers: [UserController, UserPermissionController, SignInController, TaskController, ProductController],
+            controllers: [UserController, UserPermissionController, SignInController, TaskController, ProductController,OrderController],
             global: true,
             imports: [options.useCaseModule],
             providers: [

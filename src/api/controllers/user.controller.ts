@@ -27,8 +27,6 @@ export class UserController {
         private readonly userCreateUseCase: UserCreateUseCase
     ) { }
 
-    @UseGuards(AuthGuard)
-    @Roles(Role.Admin)
     @Get('search')
     async find(@Request() req) {
         req.user = await this.userSearchUseCase.find()

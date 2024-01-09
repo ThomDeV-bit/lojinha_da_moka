@@ -34,14 +34,13 @@ export class UserPermissionRepository {
         if (Isvalid === false) throw new ForbiddenException('Usuario ja contem essa permissão')
 
         const roles = await this.rolesRepository.findById(role);
-
         if (user === null || roles === null) {
             throw new BadRequestException('Verifique se o usuario ou a permissao e valida');
         }
 
         userPermission.id = v4();
         userPermission.user = user;
-        userPermission.roles = roles;
+        userPermission.roles = roles
         const newUserPermission = this.userPermissionRepository.create(userPermission);
         return await this.userPermissionRepository.save(newUserPermission);
     }

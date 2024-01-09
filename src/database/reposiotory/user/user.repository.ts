@@ -21,7 +21,13 @@ export class UserRepository implements IUserRepository {
             }
         });
     }
-
+    async find(user: string) {
+        return await this.userRepository.findOne({
+            where: {
+                id: user
+            }
+        })
+    }
     async insert(user: UserDTO): Promise<UserEntity> {
         const users = this.userRepository.create(user);
         return await this.userRepository.save(users);
@@ -32,8 +38,8 @@ export class UserRepository implements IUserRepository {
             where: {
                 id: user
             },
-            relations : {
-                 userPermissions : true
+            relations: {
+                userPermissions: true
             }
         })
     }
@@ -43,8 +49,8 @@ export class UserRepository implements IUserRepository {
             where: {
                 email: userEmail
             },
-            relations : {
-                userPermissions : true
+            relations: {
+                userPermissions: true
             }
         })
     }

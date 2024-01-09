@@ -21,12 +21,12 @@ export class ProductEntity {
 
 
     @OneToMany(()=> ProductsCategorietEntity, (categorie) => categorie.product)
-    categorie : ProductsCategorietEntity
+    categorie : ProductsCategorietEntity[]
 
-    
+
     @OneToMany(()=> ProductImagesEntity, (image) => image.product)
-    image : ProductImagesEntity
+    image : ProductImagesEntity[]
 
     @OneToMany(()=> ProductsByOrderEntity,(productsByOrder)=> productsByOrder.products)
-    productsByOrder: ProductsByOrderEntity
+    productsByOrder: ProductsByOrderEntity[]
 }

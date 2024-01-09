@@ -4,19 +4,19 @@ import { RolesEntity } from "src/database/entities/roles.entity";
 import { UserEntity } from "src/database/entities/user.entity";
 
 export class UserPermissionDTO {
-    @ApiProperty({name : 'id'})
-    @Expose({name : 'id'})
-    id : string
+    @ApiProperty({ name: 'id' })
+    @Expose({ name: 'id' })
+    id: string
 
-    @ApiProperty({name : 'userId'})
-    @Expose({name : 'userId'})
-    @Type(()=> UserEntity)
-    user : UserEntity
+    @ApiProperty({ name: 'userId' })
+    @Expose({ name: 'userId' })
+    @Type(() => UserEntity)
+    user: UserEntity
 
 
-    @ApiProperty({name : 'roelsid'})
-    @Expose({name : 'rolesid'})
-    @Type(()=> RolesEntity)
-    roles : RolesEntity
+    @ApiProperty({ name: 'rolesid' })
+    @Expose({ name: 'rolesid' })
+    @Type(() => RolesEntity)
+    roles: RolesEntity
 
 }

@@ -2,22 +2,19 @@ import { ApiProperty } from "@nestjs/swagger"
 import { Expose } from "class-transformer"
 
 export class ProductDTO {
+    @ApiProperty({ name: 'id' })
+    @Expose({ name: 'id' })
     id: string
 
-    @ApiProperty({ name: 'name' })
+    @ApiProperty({ name: 'name', required: false })
     @Expose({ name: 'name' })
     name: string
 
-    @ApiProperty({ name: 'price' })
+    @ApiProperty({ name: 'price', required: false })
     @Expose({ name: 'price' })
     price: number
 
-    @ApiProperty({ name: 'quantity' })
+    @ApiProperty({ name: 'quantity', required: false })
     @Expose({ name: 'quantity' })
     quantity: number
-
-
-    @ApiProperty({ name: 'image', nullable: true, format: "binary", type: 'string' })
-    @Expose({ name: 'image' })
-    image?: Blob | any
 }
