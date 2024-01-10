@@ -13,7 +13,7 @@ export class ProductRepository {
         private readonly productRepository: Repository<ProductEntity>
     ) { }
 
-    async find(name: string) {
+    async findByName(name: string) {
         const result = await this.productRepository.findOne({
             where: {
                 name
@@ -24,6 +24,10 @@ export class ProductRepository {
             }
         })
         return result
+    }
+
+    async find() {
+        return await this.productRepository.find()
     }
 
     async findById(id: string[]) {

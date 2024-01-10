@@ -18,9 +18,11 @@ export class ProductController {
     ) { }
 
     @Get('/')
-    async getProduct(@Query('name') name: string) {
-        return await this.productUsecase.getProcuct(name)
+    async getProduct() {
+        return await this.productUsecase.getProcuct()
     }
+
+
 
     @Post('image/create')
     @ApiConsumes('multipart/form-data')

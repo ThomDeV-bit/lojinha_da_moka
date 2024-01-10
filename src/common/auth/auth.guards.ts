@@ -24,7 +24,7 @@ export class AuthGuard implements CanActivate {
 
         const request = context.switchToHttp().getRequest()
         const token = this.extractTokenFromHeader(request)
-        
+
         if (!token) throw new UnauthorizedException('Usuarios errado')
         try {
             const payload: UserEntity | undefined = await this.jwtToken.verifyAsync(
@@ -34,8 +34,8 @@ export class AuthGuard implements CanActivate {
         } catch (error) {
             throw new UnauthorizedException('usuario sem permissao')
         }
-
         const validate = requiredRoles.some((roles) => request.user?.role === roles)
+        console.log(request.user?.rolek, 'dadasdadadad')
         if (!validate) throw new UnauthorizedException('Usuario nao permissao para acessar essa rota')
         return validate
     }

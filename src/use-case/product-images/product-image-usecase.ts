@@ -19,7 +19,7 @@ export class ProductImageUsecase {
     ) { }
 
     async createProductImage(product: string, file: Express.Multer.File) {
-        const producId = await this.productRepository.find(product)
+        const producId = await this.productRepository.findByName(product)
         const create = new ProductImageDTO()
         create.id = v4()
         create.image = file.buffer

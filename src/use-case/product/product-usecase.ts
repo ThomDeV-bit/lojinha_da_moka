@@ -23,8 +23,8 @@ export class ProductUsecase {
         private readonly productCategorieRepository: ProductsCategorieRepository
     ) { }
 
-    async getProcuct(name: string) {
-        const product = await this.productRepository.find(name)
+    async getProcuct() {
+        const product = await this.productRepository.find()
         return product
     }
 
