@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
+import { never } from "rxjs";
 import { ProductDTO } from "src/api/dtos/product.dto";
 import { ProductEntity } from "src/database/entities/product.entity";
 import { In, Repository } from "typeorm";
@@ -19,7 +20,7 @@ export class ProductRepository {
                 name
             },
             relations: {
-                image: true,
+                image: { image: true },
                 categorie: true
             }
         })
@@ -27,7 +28,11 @@ export class ProductRepository {
     }
 
     async find() {
-        return await this.productRepository.find()
+        return await this.productRepository.find({
+            relations: {
+                categorie: true,
+            }
+        })
     }
 
     async findById(id: string[]) {
