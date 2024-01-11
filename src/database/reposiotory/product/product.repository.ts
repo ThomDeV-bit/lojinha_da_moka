@@ -20,7 +20,7 @@ export class ProductRepository {
                 name
             },
             relations: {
-                image: { image: true },
+                image: true,
                 categorie: true
             }
         })
@@ -30,6 +30,7 @@ export class ProductRepository {
     async find() {
         return await this.productRepository.find({
             relations: {
+                image: true,
                 categorie: true,
             }
         })
