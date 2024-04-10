@@ -1,4 +1,4 @@
-import { DynamicModule, Module, UsePipes } from '@nestjs/common';
+import { ConsoleLogger, DynamicModule, Module, UsePipes } from '@nestjs/common';
 import { OPTIONS_TYPE } from './api.module-definition';
 import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { UserController } from './controllers/user.controller';
@@ -10,7 +10,7 @@ import { SignInController } from './controllers/singIn.controller';
 import { ProductController } from './controllers/product.controller';
 import { OrderController } from './controllers/order.controller';
 import { CacheInterceptor, CacheModule } from '@nestjs/cache-manager';
-import { redisStore } from 'cache-manager-redis-yet';
+import { AllExceptionFilter } from 'src/common/globalExceptionFilter/globalExceptionFilter';
 @Module({})
 export class ApiModule {
     static register(options: typeof OPTIONS_TYPE): DynamicModule {
@@ -18,13 +18,24 @@ export class ApiModule {
             module: ApiModule,
             controllers: [UserController, UserPermissionController, SignInController, TaskController, ProductController, OrderController],
             global: true,
-            imports: [options.useCaseModule],
+            imports: [
+                options.useCaseModule,
+            ],
 
             providers: [
                 {
                     provide: APP_INTERCEPTOR,
                     useClass: GlobalResponse
                 },
+                {
+                    provide: APP_INTERCEPTOR,
+                    useClass: AllExceptionFilter
+                },
+                {
+                    provide: APP_INTERCEPTOR,
+                    useClass: CacheInterceptor
+                },
+                ConsoleLogger
             ]
         };
     }

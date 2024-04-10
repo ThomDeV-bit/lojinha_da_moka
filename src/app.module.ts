@@ -9,6 +9,8 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { ClientsModule } from '@nestjs/microservices';
 import { CacheModule } from '@nestjs/cache-manager';
 import pino from 'pino/pino';
+import { redisStore } from 'cache-manager-redis-yet';
+import { RedisClientOptions } from 'redis';
 
 @Module({})
 export class AppModule {
@@ -19,10 +21,6 @@ export class AppModule {
                 pinoHttp: {
                     level: 'info',
                     timestamp: () => `,"timestamp":"${new Date().toLocaleString()}"`,
-                    stream: pino.destination({
-                        dest: `./console_node.log`, // omit for stdout
-                        sync: false, // Asynchronous logging,
-                    }),
                     serializers: {
                         req(req) {
                             req.body = req.raw.body;
@@ -51,6 +49,16 @@ export class AppModule {
             ApiModule.register({
                 useCaseModule: UseCaseModule.register()
             }),
+            CacheModule.register<RedisClientOptions>({
+                isGlobal: true,
+                store: redisStore,
+                socket: {
+                    port: 6379,
+                    host: 'redis'
+                },
+                ttl: 6000,
+
+            })
         ]
 
         return {

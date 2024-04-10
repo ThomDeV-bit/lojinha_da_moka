@@ -29,7 +29,7 @@ export class UserController {
     @Roles(Role.Admin)
     @Get('search')
     async find(@Request() req) {
-        console.log('Buscou no banco')
+        console.log('Buscou no banco ALTERACAO FEITA COM SUCESSO')
         req.user = await this.userSearchUseCase.find()
         return req.user
     }
