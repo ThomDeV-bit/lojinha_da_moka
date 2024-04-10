@@ -9,14 +9,17 @@ import { AuthGuard } from 'src/common/auth/auth.guards';
 import { SignInController } from './controllers/singIn.controller';
 import { ProductController } from './controllers/product.controller';
 import { OrderController } from './controllers/order.controller';
+import { CacheInterceptor, CacheModule } from '@nestjs/cache-manager';
+import { redisStore } from 'cache-manager-redis-yet';
 @Module({})
 export class ApiModule {
     static register(options: typeof OPTIONS_TYPE): DynamicModule {
         return {
             module: ApiModule,
-            controllers: [UserController, UserPermissionController, SignInController, TaskController, ProductController,OrderController],
+            controllers: [UserController, UserPermissionController, SignInController, TaskController, ProductController, OrderController],
             global: true,
             imports: [options.useCaseModule],
+
             providers: [
                 {
                     provide: APP_INTERCEPTOR,

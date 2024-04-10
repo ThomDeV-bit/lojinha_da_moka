@@ -5,14 +5,14 @@ import { UseCaseModule } from './use-case/use-cases.module';
 import { ApiModule } from './api/api.module';
 import { LoggerModule } from 'nestjs-pino';
 import { JwtModule } from '@nestjs/jwt';
-import * as dotenv from 'dotenv';
 import { ScheduleModule } from '@nestjs/schedule';
-import pino from 'pino';
+import { ClientsModule } from '@nestjs/microservices';
+import { CacheModule } from '@nestjs/cache-manager';
+import pino from 'pino/pino';
 
 @Module({})
 export class AppModule {
     static register(): DynamicModule {
-        dotenv.config()
 
         const imports = [
             LoggerModule.forRoot({
@@ -50,8 +50,8 @@ export class AppModule {
 
             ApiModule.register({
                 useCaseModule: UseCaseModule.register()
-            })
-        ];
+            }),
+        ]
 
         return {
             module: AppModule,
@@ -59,3 +59,5 @@ export class AppModule {
         };
     }
 }
+
+

@@ -11,7 +11,7 @@ import { Migrations1704819507332 } from '../migrations/1704819507332-migrations'
 
 export const dataSourceOptions: DataSourceOptions = {
     type: 'mysql',
-    host: 'localhost',
+    host: 'mysqldb',
     port: 3306,
     username: 'root',
     password: 'root123',

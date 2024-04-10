@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Query, Request, UnprocessableEntityException, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, Query, Request, UnprocessableEntityException } from "@nestjs/common";
 import { ApiSecurity, ApiTags } from "@nestjs/swagger";
 import { UserPermissionUseCase } from "src/use-case/userPermission/user-permission-usecase";
 import { UserPermissionDTO } from "../dtos/userPermission.dto";

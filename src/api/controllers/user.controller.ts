@@ -3,11 +3,9 @@ import {
     Controller,
     Get,
     Post,
-    UnprocessableEntityException,
-    UseGuards,
     Request,
-    Header,
-    Headers,
+    UseInterceptors,
+
 } from '@nestjs/common';
 import { ApiSecurity, ApiTags } from '@nestjs/swagger';
 import { UserSearchUseCase } from 'src/use-case/user/user-find-usecase';
@@ -16,6 +14,7 @@ import { UserCreateUseCase } from 'src/use-case/user/user-create-usecase';
 import { AuthGuard } from 'src/common/auth/auth.guards';
 import { ROLES_KEY, Roles } from 'src/common/auth/role/role.decorator';
 import { Role } from 'src/common/auth/role/role.enum';
+import { CacheInterceptor } from '@nestjs/cache-manager';
 
 
 @Controller('users')
@@ -27,10 +26,10 @@ export class UserController {
         private readonly userCreateUseCase: UserCreateUseCase
     ) { }
 
-    @UseGuards(AuthGuard)
     @Roles(Role.Admin)
     @Get('search')
     async find(@Request() req) {
+        console.log('Buscou no banco')
         req.user = await this.userSearchUseCase.find()
         return req.user
     }
@@ -40,3 +39,6 @@ export class UserController {
         return await this.userCreateUseCase.create(user);
     }
 }
+
+
+

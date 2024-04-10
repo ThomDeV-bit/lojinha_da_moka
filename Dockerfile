@@ -1,4 +1,4 @@
-FROM node:18.17.0-slim
+FROM node:21.7.2
 
 WORKDIR /usr/src/api
 

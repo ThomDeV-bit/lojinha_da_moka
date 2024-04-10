@@ -1,40 +1,50 @@
 version: '3.9'
 services:
-    mysql:
+    mysqldb:
         image: mysql:latest
         container_name: loja-db
-        networks:
-            - compose-bridge
+        restart: unless-stopped
         environment:
             MYSQL_DATABASE: 'loja'
-            MYSQL_USER: 'root'
-            MYSQL_PASSWORD: 'root123'
-            MYSQL_ROOT_PASSWORD: 'root123'
-            MYSQL_TCP_PORT : 3306
+            MYSQL_ROOT_PASSWORD: root123
+            MYSQL_TCP_PORT: 3306
         ports:
-            - '8080:3000'
-        volumes:
-            - C:\Users\thomaz.josetti\Desktop\mysql:/var/lib/mysql
-
-    api:
-        image: thomdev24/app-node:1.0
-
-        container_name: lojinha_da_moka
-
+            - 3307:3306
+        expose:
+            - 3306
+        healthcheck:
+            test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+            timeout: 30s
+            retries: 10
+        networks:
+            - mynet
+    app:
+        depends_on:
+            - mysqldb
+        build:
+            dockerfile: Dockerfile
+            context: .
+        links:
+            - mysqldb:database
         environment:
+            MYSQL_HOST: mysqldb
+            MYSQL_LOCAL_PORT: 3306
             MYSQL_DATABASE: 'loja'
-            MYSQL_USER: 'root'
+            MYSQL_USERNAME: 'root'
             MYSQL_PASSWORD: 'root123'
             MYSQL_ROOT_PASSWORD: 'root123'
-            MYSQL_TCP_PORT : 3306
-
         networks:
-            - compose-bridge
+            - mynet
+        container_name: lojinha
+        restart: unless-stopped
         ports:
             - 3000:3000
-
+        expose:
+            - 3000
+        volumes:
+            - C:\Users\thomaz.josetti\Desktop\mysql:/var/lib/mysql
 networks:
-    compose-bridge:
+    mynet:
+        external : true
+        name:  mynet
         driver: bridge
-
-
