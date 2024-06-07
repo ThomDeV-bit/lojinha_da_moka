@@ -11,6 +11,6 @@ RUN npm install --quiet --no-optional --no-found --loglevel=error
 RUN npm run build
 
 EXPOSE 3000
-EXPOSE 3306
+EXPOSE 3307
 
 CMD ["npm","run","start:prod"]

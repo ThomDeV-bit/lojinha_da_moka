@@ -11,7 +11,7 @@ services:
         ports:
             - 3307:3306
         expose:
-            - 3306
+            - 3307
         healthcheck:
             test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
             timeout: 30s
@@ -50,7 +50,7 @@ services:
             - C:\Users\thomaz.josetti\Desktop\redis:/usr/local/etc/redis
             - C:\Users\thomaz.josetti\Desktop\mysql:/var/lib/mysql
 
-    redis :
+    redis:
         container_name: redis-cache
         image: redis:7.0-alpine
         environment:
@@ -63,13 +63,12 @@ services:
         expose:
             - 6379
         healthcheck:
-            test: ["CMD", "redis-cli", "ping"]
+            test: [ "CMD", "redis-cli", "ping" ]
             interval: 1s
             timeout: 5s
             retries: 10
 
 networks:
     mynet:
-        external : true
-        name:  mynet
+        name: mynet
         driver: bridge

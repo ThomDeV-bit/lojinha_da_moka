@@ -7,18 +7,18 @@ import { ProductImagesEntity } from '../entities/products-images.entity';
 import { ProductsByOrderEntity } from '../entities/productsByOrder.entity';
 import { ProductsCategorietEntity } from '../entities/products-categories.entity';
 import { OrderstEntity } from '../entities/orders.entity';
-import { Migrations1704819507332 } from '../migrations/1704819507332-migrations';
 
 export const dataSourceOptions: DataSourceOptions = {
     type: 'mysql',
-    host: 'mysqldb',
-    port: 3306,
-    username: 'root',
-    password: 'root123',
-    database: 'loja',
+    host: process.env.MYSQL_HOST,
+    port: parseInt(process.env.MYSQL_LOCAL_PORT),
+    username: process.env.MYSQL_USERNAME,
+    password: process.env.MYSQL_PASSWORD,
+    database: process.env.MYSQL_DATABASE,
     cache: true,
-    entities: [UserEntity, RolesEntity, UserPermissionEntity,ProductEntity,ProductImagesEntity, ProductsByOrderEntity,ProductsCategorietEntity,OrderstEntity],
-    migrations: [Migrations1704819507332],
+    entities: [UserEntity, RolesEntity, UserPermissionEntity, ProductEntity, ProductImagesEntity, ProductsByOrderEntity, ProductsCategorietEntity, OrderstEntity],
+    migrations: [],
+    synchronize: true,
     logging: 'all'
 };
 
